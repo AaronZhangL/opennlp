@@ -39,10 +39,8 @@ public class LanguageDetectorSampleStream
   }
 
   public LanguageSample read() throws IOException {
-    String sampleString = samples.read();
-
-    if (sampleString != null) {
-
+    String sampleString;
+    while ((sampleString = samples.read()) != null) {
       int tabIndex = sampleString.indexOf("\t");
       if (tabIndex > 0) {
         String lang = sampleString.substring(0, tabIndex);
@@ -51,6 +49,7 @@ public class LanguageDetectorSampleStream
         return new LanguageSample(new Language(lang), context);
       }
     }
+
     return null;
   }
 }
